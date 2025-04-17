@@ -6,7 +6,7 @@
 /*   By: btigran <btigran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:08:17 by btigran           #+#    #+#             */
-/*   Updated: 2025/04/16 22:45:53 by btigran          ###   ########.fr       */
+/*   Updated: 2025/04/17 18:27:24 by btigran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,15 @@ string get_input()
 }
 
 
-bool check_input(string formula)//need to check positions of operators, must be between digits
+bool check_input(string formula)
 {
-	int length = 0;
-	string allowed_characters = "0123456789.+-*/()"
-	int parenthesis_count = 0;
+
+	int    length = 0;
+	int    parenthesis_count = 0;
+	int    j = 0;
+	string allowed_characters = "0123456789.+-*/() ";
+	string operands = "+-*/";
+	//string digits = "0123456789";
 	
 	length = formula.length();
 	for (int i = 0; i < length; i++)
@@ -34,6 +38,27 @@ bool check_input(string formula)//need to check positions of operators, must be 
 		if (!(allowed_characters.find(formula[i])))
 		{
 			return (false);
+		}
+		if (operands.find(formula[i]))
+		{
+			j = i;
+			while (j < length - 1 && formula[j] == ' ')
+			{
+				j++;
+			}
+			if (formula[j] != '(' && (formula[j] > '9' || formula[j] < '0'))
+			{
+				return (false);
+			}
+			j = i;
+			while (j > 0 && formula[j] == ' ')
+			{
+				j--;
+			}
+			if (formula[j] != '(' && (formula[j] > '9' || formula[j] < '0'))
+			{
+				return (false);
+			}
 		}
 		if (formula[i] == '(')
 		{

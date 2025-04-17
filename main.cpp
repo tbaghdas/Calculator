@@ -6,7 +6,7 @@
 /*   By: btigran <btigran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 17:29:43 by btigran           #+#    #+#             */
-/*   Updated: 2025/04/13 20:07:49 by btigran          ###   ########.fr       */
+/*   Updated: 2025/04/17 17:00:37 by btigran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int main()
 	string err_massage;
 	
 	formula = get_input();
-	if (check_input(formula))
+	if (!check_input(formula))
 	{
-		err_massage = "Please input the correct formula, you can use only +, -, *, /, '.',  () symbols and all digits";
+		err_massage = "Please input the correct formula, you can use only +, -, *, /, '.', ' ', (, ) symbols and all digits";
 		print(err_massage);
 		return (0);
 	}
