@@ -6,7 +6,7 @@
 /*   By: btigran <btigran@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:08:17 by btigran           #+#    #+#             */
-/*   Updated: 2025/04/17 18:27:24 by btigran          ###   ########.fr       */
+/*   Updated: 2025/04/21 20:43:14 by btigran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,89 @@ bool check_input(string formula)
 void print(string str)
 {
 	std::cout << str << std:endln;
+}
+
+
+string alu(long double a, long double b, char operand)
+{
+	switch (operand)
+	{
+		case '+':
+			return (to_string(a + b));
+			break;
+		case '-':
+			return (to_string(a - b));
+			break;
+		case '*':
+			return (to_string(a * b));
+			break;
+		case '/':
+			return (to_string(a / b));
+			break;
+	}
+}
+
+string basic_calculator(string formula)
+{
+	int         length = 0;
+	int         start_parenthesis = 0;
+	int         size = 0;
+	int         start_idx = 0;
+	bool        flag = 0;
+	long double a = 0;
+	long double b = 0;
+	string      operands[2] = {"*/", "+-"}
+	string      results = "";
+
+	length = formula.length();
+	for (string oerand : operands)
+	{
+		for (int i = 0; i < length; i++)
+		{
+			if (isdigit(formula[i]) && flag == 0)
+			{
+				digit_start_idx = i;
+				start_idx = i;
+				flag = 1;
+			}
+			else if (flag == 1 && formula[i] != '.')
+			{
+				digit_end_idx = i;
+				flag = 0;
+			}
+			if (formula[i] == operand[0] || formula[i] == operand[1])
+			{
+				size = digit_end_idx - digit_start_idx;
+				a = stoi(formula.substr(digit_start_idx, size));
+				j = i;
+				digit_end_idx = 0;
+				digit_start_idx = 0;
+				while (j < length && digit_end_idx == 0)
+				{
+					if (isdigit(formula[j]) && flag == 0)
+					{
+						digit_start_idx = j;
+						flag = 1;
+					}
+					else if (flag == 1 && formula[i] != '.')
+					{
+						digit_end_idx = j;
+						flag = 0;
+					}
+					j++;
+				}
+				size = digit_end_idx - digit_start_idx;
+				b = stoi(formula.substr(digit_start_idx, size));
+				results = alu(a, b, formula[i]);
+				size = digit_end_idx - start_idx;
+				formula.replace(start_idx, size, results);
+				length = formula.length();
+				i = start_idx + results.length;
+			}
+			i++;
+		}
+	}
+	return (formula);
 }
 
 
